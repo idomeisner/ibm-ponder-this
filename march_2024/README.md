@@ -5,8 +5,8 @@ My Solution: [Code](march_2024.py)
 
 
 ## Solution
-**Solution:** `115192665` <br>
-**Bonus:** `117778830159`
+Solution: `115192665` <br>
+Bonus: `117778830159`
 
 
 ## General Idea
@@ -16,7 +16,7 @@ Every iteration I run on `cur_seq` and check each term if it is a prime number. 
 By doing so we make sure each prime number is encountered at most one time.<br>
 If we run on the entire sequence without finding a prime number - we find a solution.<br>
 
-Optimizations:
+**Optimizations**:
 - I run on `cur_seq` from the largest term to the smallest. That way when a prime number is found we eliminate the maximal number of offsets.
 - We know that only odd numbers can be primes, so we split the sequence into two sequences - even number and odd numbers.<br>
   In every iteration, we check only the odd number.
