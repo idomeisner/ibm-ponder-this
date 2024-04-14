@@ -1,6 +1,6 @@
 # IBM Ponder This - March 2024 Challenge
 
-Challenge: [Sequence without primes](https://research.ibm.com/haifa/ponderthis/challenges/March2024.html) <br>
+Challenge: [Composite Sequences](https://research.ibm.com/haifa/ponderthis/challenges/March2024.html) <br>
 My Solution: [Code](march_2024.py)
 
 
