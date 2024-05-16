@@ -18,8 +18,7 @@ If we run on the entire sequence without finding a prime number - we find a solu
 
 **Optimizations**:
 - I run on `cur_seq` from the largest term to the smallest. That way when a prime number is found we eliminate the maximal number of offsets.
-- We know that except for the number `2`, even numbers are not primes, so we split the sequence into two sequences - even numbers and odd numbers.<br>
-  In each iteration, we check only the odd numbers.
+- We know that except for the number `2`, even numbers are not primes, so we split the sequence into two sequences - even numbers and odd numbers. In each iteration, we check only the odd numbers.
 - Using Numpy for vector operations.
 - Because the solution reaches big numbers, for short sequences `(n <= 1000)` I use the Sieve of Eratosthenes algorithm to precompute all the prime numbers. 
 
