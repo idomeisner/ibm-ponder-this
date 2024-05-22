@@ -8,6 +8,8 @@ Bonus:
 1169723214
 """
 
+import argparse
+import json
 from copy import deepcopy
 from time import time
 from typing import Any, Dict, List
@@ -137,24 +139,29 @@ def min_synced_winning_step(winning_states_all: List[List[int]]) -> int:
     return min_step
 
 
-def main():
-    game1 = {
-        "n": 7,
-        "moves": "12021121120020211202121"
-    }
-    game2 = {
-        "n": 10,
-        "moves": "0211202112002"
-    }
-    game3 = {
-        "n": 9,
-        "moves": "20202020021212121121202120200202002121120202112021120020021120211211202002112021120211200212112020212120211"
-    }
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "-g",
+        "--games",
+        default="challenge",
+        type=str,
+        dest="games",
+        help="the input games file name",
+    )
+
+    return parser.parse_args()
+
+
+def main(args: argparse.Namespace):
+    games_file = f"games/{args.games}.json"
+
+    with open(games_file) as f:
+        games = json.load(f)["games"]
 
     start = time()
 
-    games = [game1, game2]
-    # games = [game1, game2, game3]
     winning_states_all = [find_winning_states(**game) for game in games]
     result = min_synced_winning_step(winning_states_all)
 
@@ -165,4 +172,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(parse_args())

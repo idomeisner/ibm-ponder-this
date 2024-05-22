@@ -6,8 +6,12 @@ Solution:
 
 Bonus:
 1169723214
+
+Packages installed: sympy
 """
 
+import argparse
+import json
 from copy import deepcopy
 from time import time
 from typing import Any, Dict, List, Tuple
@@ -122,7 +126,7 @@ class Hanoi:
 
                 # if all disks are located in rod "1" we found a winning state
                 if len(hanoi[1]) == stop_condition and self._disk_1_location == 1:
-                    r = step % moves_len
+                    r = step % moves_len  # the index of the current move in the moves string
 
                     # if r is in winning_moves we are starting a new winning cycle, so we can stop
                     if r in winning_moves:
@@ -227,7 +231,7 @@ def find_synced_wins(
             if period_phase := combine_phased_rotations(period1, phase1, period2, phase2):
                 res.append(period_phase)
 
-            # We can alternatively use the crt (chinese remainder theorem) function from the sympy package
+            # Alternatively, we can use the crt (chinese remainder theorem) function from the sympy package
             # to obtain the combined period and phase
             # if phase_period := crt([period2, period1], [phase2, phase1]):
             #     res.append((phase_period[1], phase_period[0]))
@@ -258,26 +262,29 @@ def min_synced_winning_step(games) -> int:
     return -1 if not curr else min(curr, key=lambda x: x[1])[1]
 
 
-def main():
-    game1 = {
-        "n": 7,
-        "moves": "12021121120020211202121"
-    }
-    game2 = {
-        "n": 10,
-        "moves": "0211202112002"
-    }
-    game3 = {
-        "n": 9,
-        "moves": "20202020021212121121202120200202002121120202112021120020021120211211202002112021120211200212112020212120211",
-    }
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "-g",
+        "--games",
+        default="challenge",
+        type=str,
+        dest="games",
+        help="the input games file name",
+    )
+
+    return parser.parse_args()
+
+
+def main(args: argparse.Namespace):
+    games_file = f"games/{args.games}.json"
+
+    with open(games_file) as f:
+        games = json.load(f)["games"]
 
     start = time()
-
-    # games = [game1, game2]
-    games = [game1, game2, game3]
     result = min_synced_winning_step(games)
-
     end = time()
 
     print(f"Solution: {result}")
@@ -285,4 +292,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(parse_args())
